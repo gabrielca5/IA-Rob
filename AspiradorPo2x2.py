@@ -14,9 +14,9 @@ class AspiradorDePo(State):
                 ) -> None:
     
         super().__init__(op)
-        self.pos_robo       = pos_robo      # Posição robo = esq ou dir
-        self.condicao_esq   = condicao_esq  # Condição cômodo esquerdo = sujo ou limpo
-        self.condicao_dir   = condicao_dir  # Condição cômodo direito = sujo ou limpo
+        self.pos_robo       = pos_robo       # Posição robo = esq ou dir
+        self.condicao_esq   = condicao_esq   # Condição cômodo esquerdo = sujo ou limpo
+        self.condicao_dir   = condicao_dir   # Condição cômodo direito = sujo ou limpo
         self.condicao_baixo = condicao_baixo # Condição cômodo baixo = sujo ou limpo
         self.condicao_cima  = condicao_cima  # Condição cômodo cima = sujo ou limpo
 
@@ -61,13 +61,17 @@ class AspiradorDePo(State):
             successors.append(AspiradorDePo('limpar', 
                                             self.pos_robo,
                                             'limpo', 
-                                            self.condicao_dir))
+                                            self.condicao_dir,
+                                            self.condicao_baixo, 
+                                            self.condicao_cima))
 
         if self.pos_robo =='dir':
             successors.append(AspiradorDePo('limpar', 
                                             self.pos_robo,
                                             self.condicao_esq, 
-                                            'limpo'))
+                                            'limpo',
+                                            self.condicao_baixo,
+                                            self.condicao_cima))
 
         if self.pos_robo =='cima':
             successors.append(AspiradorDePo('limpar', 
